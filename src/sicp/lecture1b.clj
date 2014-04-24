@@ -23,3 +23,11 @@
   (if (= x 0)
     y
     (inc (+ (dec x) y))))
+
+(defn fib
+  "Fibonacci number"
+  [n]
+  (if (< n 2)
+    n
+    (+ (fib (- n 1))
+       (fib (- n 2)))))
