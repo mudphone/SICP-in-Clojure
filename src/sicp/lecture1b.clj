@@ -16,3 +16,10 @@
   (if (= x 0)
     y
     (recur (dec x) (inc y))))
+
+(defn sum-b
+  "Another Peano Arithmetic sum"
+  [x y]
+  (if (= x 0)
+    y
+    (inc (+ (dec x) y))))

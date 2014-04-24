@@ -14,3 +14,8 @@
   (testing "homegrown addition function"
     (is (= 7 (sum 3 4)))
     (is (= 0 (sum 0 0)))))
+
+(deftest sum-b-test
+  (testing "peano addition function"
+    (is (= 7 (sum-b 3 4)))
+    (is (= 0 (sum-b 0 0)))))
