@@ -9,3 +9,8 @@
 (deftest sos-test
   (testing "sum of squares"
     (is (= 25 (sos 3 4)))))
+
+(deftest sum-test
+  (testing "homegrown addition function"
+    (is (= 7 (sum 3 4)))
+    (is (= 0 (sum 0 0)))))
