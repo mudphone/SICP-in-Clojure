@@ -20,3 +20,11 @@
     0
     (+ (square a)
        (sum-sq (inc a) b))))
+
+(defn pi-sum
+  "Leibnitz formula for pi/8"
+  [a b]
+  (if (> a b)
+    0
+    (float (+ (/ 1 (* a (+ a 2)))
+              (pi-sum (+ a 4) b)))))
