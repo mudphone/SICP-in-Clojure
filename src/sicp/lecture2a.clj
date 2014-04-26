@@ -42,3 +42,31 @@
   [a b]
   (let [identity (fn [x] x)]
     (sum identity a inc b)))
+
+(defn sum-sq2
+  "Alternative sum of squares"
+  [a b]
+  (sum square a inc b))
+
+(defn pi-sum2
+  "Alternative pi sum"
+  [a b]
+  (sum (fn [i] (/ 1 (* i (+ i 2))))
+       a
+       (fn [i] (+ i 4))
+       b))
+
+(defn sum-iter
+  "Iterative implementation of sum"
+  [term-f a next-f b]
+  (let [iter (fn [j ans]
+               (if (> j b)
+                 ans
+                 (recur (next-f j)
+                        (+ (term-f j) ans))))]
+    (iter a 0)))
+
+(defn sum-int-iter
+  "Iterative sum of ints"
+  [a b]
+  (sum-iter (fn [i] i) a inc b))
