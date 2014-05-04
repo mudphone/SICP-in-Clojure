@@ -1,6 +1,6 @@
-(ns sicp.lecture2a-test
+(ns sicp.lecture2a-1-test
   (:require [clojure.test :refer :all]
-            [sicp.lecture2a :refer :all]))
+            [sicp.lecture2a-1 :refer :all]))
 
 (deftest sum-int-test
   (testing "sum of integers"

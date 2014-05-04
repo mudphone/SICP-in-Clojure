@@ -1,4 +1,9 @@
-(ns sicp.lecture2a)
+(ns sicp.lecture2a-1)
+
+;; Higher-order Procedures
+;; Lecture 2A
+;; Part 1 - Text Section 1.3
+;; http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/2a-higher-order-procedures/
 
 (defn sum-int
   "Sum of the integers from a to b"
