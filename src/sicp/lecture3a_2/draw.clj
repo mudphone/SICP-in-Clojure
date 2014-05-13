@@ -26,21 +26,32 @@
 
 (defn draw-g
   []
-  (let [seglist (make-list (make-seg (make-vector 0.2 1.0) (make-vector 0.4 0.5))
-                           (make-seg (make-vector 0.4 0.5) (make-vector 0.3 0.4))
-                           (make-seg (make-vector 0.3 0.4) (make-vector 0.2 0.6))
-                           (make-seg (make-vector 0.2 0.6) (make-vector 0.0 0.4))
+                           ;; left of left leg, and bottom of left arm
+  (let [seglist (make-list (make-seg (make-vector 0.2 1.0) (make-vector 0.4 0.55))
+                           (make-seg (make-vector 0.4 0.55) (make-vector 0.3 0.5))
+                           (make-seg (make-vector 0.3 0.5) (make-vector 0.15 0.6))
+                           (make-seg (make-vector 0.15 0.6) (make-vector 0.0 0.45))
+
+                           ;; crotch
                            (make-seg (make-vector 0.4 1.0) (make-vector 0.5 0.7))
                            (make-seg (make-vector 0.5 0.7) (make-vector 0.6 1.0))
-                           (make-seg (make-vector 0.8 1.0) (make-vector 0.6 0.5))
-                           (make-seg (make-vector 0.6 0.5) (make-vector 1.0 0.8))
-                           (make-seg (make-vector 0.0 0.0) (make-vector 0.2 0.25))
-                           (make-seg (make-vector 0.2 0.25) (make-vector 0.3 0.2))
-                           (make-seg (make-vector 0.3 0.2) (make-vector 0.4 0.2))
-                           (make-seg (make-vector 0.4 0.2) (make-vector 0.35 0.0))
-                           (make-seg (make-vector 0.65 0.0) (make-vector 0.6 0.2))
-                           (make-seg (make-vector 0.6 0.2) (make-vector 0.8 0.2))
-                           (make-seg (make-vector 0.8 0.2) (make-vector 1.0 0.6)))
+
+                           ;; right of right leg, and bottom of right arm
+                           (make-seg (make-vector 0.8 1.0) (make-vector 0.6 0.55))
+                           (make-seg (make-vector 0.6 0.55) (make-vector 1.0 0.8))
+                           
+                           ;; top of left arm, and left of head
+                           (make-seg (make-vector 0.0 0.2) (make-vector 0.15 0.45))
+                           (make-seg (make-vector 0.15 0.45) (make-vector 0.3 0.4))
+                           (make-seg (make-vector 0.3 0.4) (make-vector 0.4 0.4))
+                           (make-seg (make-vector 0.4 0.4) (make-vector 0.35 0.2))
+                           (make-seg (make-vector 0.35 0.2) (make-vector 0.4 0.0))
+
+                           ;; right of head, and top of right arm
+                           (make-seg (make-vector 0.6 0.0) (make-vector 0.65 0.2))
+                           (make-seg (make-vector 0.65 0.2) (make-vector 0.6 0.4))
+                           (make-seg (make-vector 0.6 0.4) (make-vector 0.8 0.4))
+                           (make-seg (make-vector 0.8 0.4) (make-vector 1.0 0.6)))
         g (make-picture seglist)]
     (g (make-rect [0 0] [100 0] [0 100]))))
 
