@@ -24,8 +24,8 @@
    :else (cons-l (first things)
                  (apply make-list (rest things)))))
 
-(defn draw-g
-  [r]
+(def george
+  "A procedure which draws a picture of George in given rectangle"
                            ;; left of left leg, and bottom of left arm
   (let [seglist (make-list (make-seg (make-vector 0.2 1.0) (make-vector 0.4 0.55))
                            (make-seg (make-vector 0.4 0.55) (make-vector 0.3 0.5))
@@ -51,16 +51,15 @@
                            (make-seg (make-vector 0.6 0.0) (make-vector 0.65 0.2))
                            (make-seg (make-vector 0.65 0.2) (make-vector 0.6 0.4))
                            (make-seg (make-vector 0.6 0.4) (make-vector 0.8 0.4))
-                           (make-seg (make-vector 0.8 0.4) (make-vector 1.0 0.6)))
-        g (make-picture seglist)]
-    (g r)))
+                           (make-seg (make-vector 0.8 0.4) (make-vector 1.0 0.6)))]
+    (make-picture seglist)))
 
 (defn draw
   []
   (swap! tick inc)
   (qc/background 0 0 0)
   (qc/translate (* 0.2 (qc/width)) (* 0.2 (qc/height)))
-  (draw-g (make-rect [0 0]   [100 0] [0 100]))
-  (draw-g (make-rect [120 0] [50 0]  [0 100]))
-  (draw-g (make-rect [190 0] [50 0]  [0 50]))
-  (draw-g (make-rect [260 0] [100 0] [0 50])))
+  (george (make-rect [0 0]   [100 0] [0 100]))
+  (george (make-rect [120 0] [50 0]  [0 100]))
+  (george (make-rect [190 0] [50 0]  [0 50]))
+  (george (make-rect [260 0] [100 0] [0 50])))
