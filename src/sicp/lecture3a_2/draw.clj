@@ -25,7 +25,7 @@
                  (apply make-list (rest things)))))
 
 (defn draw-g
-  []
+  [r]
                            ;; left of left leg, and bottom of left arm
   (let [seglist (make-list (make-seg (make-vector 0.2 1.0) (make-vector 0.4 0.55))
                            (make-seg (make-vector 0.4 0.55) (make-vector 0.3 0.5))
@@ -53,12 +53,14 @@
                            (make-seg (make-vector 0.6 0.4) (make-vector 0.8 0.4))
                            (make-seg (make-vector 0.8 0.4) (make-vector 1.0 0.6)))
         g (make-picture seglist)]
-    (g (make-rect [0 0] [100 0] [0 100]))))
+    (g r)))
 
 (defn draw
   []
   (swap! tick inc)
   (qc/background 0 0 0)
   (qc/translate (* 0.2 (qc/width)) (* 0.2 (qc/height)))
-  (draw-g)
-  )
+  (draw-g (make-rect [0 0]   [100 0] [0 100]))
+  (draw-g (make-rect [120 0] [50 0]  [0 100]))
+  (draw-g (make-rect [190 0] [50 0]  [0 50]))
+  (draw-g (make-rect [260 0] [100 0] [0 50])))
