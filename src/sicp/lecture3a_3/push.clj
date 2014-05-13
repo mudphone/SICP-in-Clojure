@@ -23,7 +23,7 @@
     (compose f (repeated f (- x 1)))))
 
 (defn push
-  "Means of combination for push"
+  "Provide way to push using a means of combination"
   [comb]
   (fn [pict n a]
     ((repeated
