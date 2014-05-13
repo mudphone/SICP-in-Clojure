@@ -1,8 +1,9 @@
 (ns sicp.lecture3a-2.draw
   (:require [sicp.lecture3a-2.setup :refer [tick]]
-            [sicp.lecture3a-2.rect :refer [horiz origin vert]]
-            [sicp.lecture3a-2.vector-math :refer [scale vect+]]
-            [sicp.lecture2b-3 :refer [xcor ycor]]
+            [sicp.lecture3a-2.picture :refer [make-picture]]
+            [sicp.lecture3a-2.rect :refer [make-rect]]
+            [sicp.lecture2b-4 :refer [car cdr cons-l]]
+            [sicp.lecture2b-3 :refer [make-seg make-vector]]
             [quil.core :as qc]))
 
 ;; Primitive
@@ -16,22 +17,37 @@
 ;; - beside (picture, scale)
 ;; - above
 
-(defn coord-map
-  "Gives a procedure on points, to translate from unit square to given rectangle r."
-  [r]
-  (fn [p]
-    (vect+
-     (vect+ (scale (xcor p)
-                   (horiz r))
-            (scale (ycor p)
-                   (vert r)))
-     (origin r))))
+(defn make-list
+  [ & things ]
+  (cond
+   (not (seq things)) nil
+   :else (cons-l (first things)
+                 (apply make-list (rest things)))))
+
+(defn draw-g
+  []
+  (let [seglist (make-list (make-seg (make-vector 0.2 1.0) (make-vector 0.4 0.5))
+                           (make-seg (make-vector 0.4 0.5) (make-vector 0.3 0.4))
+                           (make-seg (make-vector 0.3 0.4) (make-vector 0.2 0.6))
+                           (make-seg (make-vector 0.2 0.6) (make-vector 0.0 0.4))
+                           (make-seg (make-vector 0.4 1.0) (make-vector 0.5 0.7))
+                           (make-seg (make-vector 0.5 0.7) (make-vector 0.6 1.0))
+                           (make-seg (make-vector 0.8 1.0) (make-vector 0.6 0.5))
+                           (make-seg (make-vector 0.6 0.5) (make-vector 1.0 0.8))
+                           (make-seg (make-vector 0.0 0.0) (make-vector 0.2 0.25))
+                           (make-seg (make-vector 0.2 0.25) (make-vector 0.3 0.2))
+                           (make-seg (make-vector 0.3 0.2) (make-vector 0.4 0.2))
+                           (make-seg (make-vector 0.4 0.2) (make-vector 0.35 0.0))
+                           (make-seg (make-vector 0.65 0.0) (make-vector 0.6 0.2))
+                           (make-seg (make-vector 0.6 0.2) (make-vector 0.8 0.2))
+                           (make-seg (make-vector 0.8 0.2) (make-vector 1.0 0.6)))
+        g (make-picture seglist)]
+    (g (make-rect [0 0] [100 0] [0 100]))))
 
 (defn draw
   []
   (swap! tick inc)
   (qc/background 0 0 0)
-  (qc/translate (* 0.5 (qc/width)) (* 0.5 (qc/height)))
-  (let [theta (* 0.05 @tick)
-        x (* 0.5 (qc/width) (Math/sin theta))]
-    (qc/ellipse x 0 20 20)))
+  (qc/translate (* 0.2 (qc/width)) (* 0.2 (qc/height)))
+  (draw-g)
+  )

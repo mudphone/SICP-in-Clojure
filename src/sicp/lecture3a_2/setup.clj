@@ -7,4 +7,5 @@
 
 (defn setup
   []
+  (qc/stroke 255 255 255)
   (qc/fill 255 0 0))
