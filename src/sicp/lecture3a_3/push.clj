@@ -10,3 +10,26 @@
     (beside p
             (right-push p (dec n) a)
             a)))
+
+(defn compose
+  [f g]
+  (fn [x]
+    (f (g x))))
+
+(defn repeated
+  [f x]
+  (if (= x 1)
+    f
+    (compose f (repeated f (- x 1)))))
+
+(defn push
+  "Means of combination for push"
+  [comb]
+  (fn [pict n a]
+    ((repeated
+      (fn [p] (comb pict p a))
+      n)
+     pict)))
+
+(def right-push2
+  (push beside))
