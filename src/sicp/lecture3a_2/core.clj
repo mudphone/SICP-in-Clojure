@@ -14,7 +14,7 @@
 
 (defn run-sketch []
   (qc/defsketch the-sketch
-    :title "Hello Metronome"
+    :title "SICP 3A: Part 2"
     :setup dynamic-setup/setup
     :draw dynamic-draw/draw
     :on-close on-close-sketch
