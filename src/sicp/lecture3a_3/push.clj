@@ -3,7 +3,7 @@
             [quil.core :as qc]))
 
 (defn right-push
-  "Rotate a procedure to draw a picture by 90 degrees"
+  "Recursive drawing of picture beside itself"
   [p n a]
   (if (= n 0)
     p
