@@ -9,13 +9,6 @@
 
 (def cdr rest)
 
-#_(defn cdr
-  [x]
-  (cond
-   (nil? x) nil
-   (> (count x) 1) (rest x)
-   :else (last x)))
-
 (defn cadr
   [x]
   (car (cdr x)))
