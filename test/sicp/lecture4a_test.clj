@@ -69,6 +69,11 @@
     (is (= (extend-dict 'x 1 {'x 1}) {'x 1}))
     (is (= (extend-dict 'y 1 {'x 2}) {'x 2 'y 1}))))
 
+(deftest evaluate-test
+  (testing "evaluation of expression"
+    (is (= 5 (evaluate 'x {'x 5})))
+    (is (= 3 (evaluate '(+ x y) {'+ + 'x 1 'y 2})))))
+
 #_(deftest dsimp-test
   (testing "simplifier for derivatives"
     (is (= (dsimp '(dd (+ x y) x))

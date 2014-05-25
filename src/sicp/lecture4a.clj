@@ -3,6 +3,7 @@
 
 ;; Henderson Escher Example
 ;; Lecture 4A
+;; Pattern-matching: Rule-based Substitution
 ;; https://www.youtube.com/watch?v=amf5lTZ0UTc
 
 ;; Derivative Rules from 5:34
@@ -55,13 +56,21 @@
   [pat]
   (= '? (car pat)))
 
+(defn lookup
+  [k dict]
+  (dict k))
+
+(defn addto
+  [dict k v]
+  (assoc dict k v))
+
 (defn extend-dict
   [pat e dict]
-  (if (contains? dict pat)
-    (if (= (dict pat) e)
+  (if-let [v (lookup pat dict)]
+    (if (= v e)
       dict
       'failed)
-    (assoc dict pat e)))
+    (addto dict pat e)))
 
 (defn match
   "Matcher
@@ -98,8 +107,37 @@
           (cdr e)
           (match (car pat)
                  (car e)
-                 dict))
-   ))
+                 dict))))
+
+(defn skeleton-evaluation?
+  [s]
+  (= '?= (car s)))
+
+(defn evaluate
+  [form dict]
+  (if (atom? form)
+    (lookup form dict)
+    (apply
+     (eval (lookup (car form) dict))
+     (map (fn [v]
+            (lookup v dict))
+          (cdr form)))))
+
+(defn eval-exp
+  [&x])
+
+(defn instantiate
+  [skeleton dict]
+  (let [lp (fn lp [s]
+             (cond
+              (atom? s) s
+
+              (skeleton-evaluation? s)
+              (evaluate (eval-exp s) dict)
+
+              :else (cons (lp (car s))
+                          (lp (cdr s)))))]
+    (lp skeleton)))
 
 (defn simplifier
   [&x])
