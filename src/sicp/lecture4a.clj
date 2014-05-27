@@ -1,10 +1,16 @@
 (ns sicp.lecture4a
-  (:require [sicp.lecture3b-1 :refer [atom? car cdr]]))
+  (:require [sicp.lecture3b-1 :refer [car cdr]]))
 
 ;; Henderson Escher Example
 ;; Lecture 4A
 ;; Pattern-matching: Rule-based Substitution
 ;; https://www.youtube.com/watch?v=amf5lTZ0UTc
+
+(defn atom? [thing]
+  "Added number? test for ch4, pg59, #1 from Little Lisper."
+  (or (symbol? thing) (number? thing) (nil? thing)
+      (and (seq? thing)
+           (empty? thing))))
 
 ;; Derivative Rules from 5:34
 ;; dd = derivative
@@ -15,11 +21,6 @@
 ;;        these are pattern variables for matching
 ;; : = substitution objects, skeleton evaluation
 
-(defn ?= [?x])
-(defn ?c [?x])
-(defn ?v [?x])
-(defn ? [?x])
-(defn dd [?x])
 (def deriv-rules
   '(
     ( (dd (?c c) (? v)) 0 )
@@ -56,21 +57,40 @@
   [pat]
   (= '? (car pat)))
 
+(defn arbitrary-value
+  [pat]
+  (second pat))
+
 (defn lookup
+  "Contains replacement for user-initial-environment
+   in video lecture at ~40:08.
+   Apparently required to make sense of arbitrary
+   expressions."
   [k dict]
-  (dict k))
+  (cond
+   (number? k) k
+   (= '+ k) '+
+   (= '- k) '-
+   (= '* k) '*
+   (= '/ k) '/
+   :else (dict k)))
 
 (defn addto
   [dict k v]
   (assoc dict k v))
 
+(defn empty-dict
+  []
+  {})
+
 (defn extend-dict
   [pat e dict]
-  (if-let [v (lookup pat dict)]
-    (if (= v e)
-      dict
-      'failed)
-    (addto dict pat e)))
+  (let [k (arbitrary-value pat)]
+    (if-let [v (lookup k dict)]
+      (if (= v e)
+        dict
+        'failed)
+      (addto dict k e))))
 
 (defn match
   "Matcher
@@ -82,10 +102,10 @@
    ;; Atomic patterns
    (atom? pat)
    (if (atom? e)
-     (if (= pat e)
-       dict
-       'failed)
-     'failed)
+             (if (= pat e)
+               dict
+               'failed)
+             'failed)
 
    ;; Pattern variable clauses
    (arbitrary-constant? pat)
@@ -101,7 +121,7 @@
    (arbitrary-expression? pat)
    (extend-dict pat e dict)
    
-   (atom? e) 'failed   
+   (atom? e) 'failed
    :else
    (match (cdr pat)
           (cdr e)
@@ -115,16 +135,18 @@
 
 (defn evaluate
   [form dict]
-  (if (atom? form)
+  (if (or
+       (atom? form)
+       (lookup form dict))
     (lookup form dict)
     (apply
      (eval (lookup (car form) dict))
-     (map (fn [v]
-            (lookup v dict))
+     (map #(lookup % dict)
           (cdr form)))))
 
 (defn eval-exp
-  [&x])
+  [s]
+  (second s))
 
 (defn instantiate
   [skeleton dict]
@@ -135,12 +157,47 @@
               (skeleton-evaluation? s)
               (evaluate (eval-exp s) dict)
 
-              :else (cons (lp (car s))
-                          (lp (cdr s)))))]
+              :else
+              (cons (lp (car s))
+                    (lp (cdr s)))))]
     (lp skeleton)))
 
+(defn compound?
+  [e]
+  (not (atom? e)))
+
+(defn pattern
+  [rule]
+  (first rule))
+
+(defn skeleton
+  [rule]
+  (second rule))
+
+(defn scan
+  [e simplify-fn rules]
+  (if (not (seq rules))
+    e
+    (let [dict (match (pattern (car rules))
+                      e
+                      (empty-dict))]
+      (if (= dict 'failed)
+        (scan e simplify-fn (cdr rules))
+        (simplify-fn
+         (instantiate
+          (skeleton (car rules))
+          dict))))))
+
 (defn simplifier
-  [&x])
+  [the-rules]
+  (let [try-rules (fn try-rules [simplify-fn e]
+                    (scan e simplify-fn the-rules))
+        simplify-exp (fn simplify-exp [e]
+                       (try-rules simplify-exp
+                        (if (compound? e)
+                          (map simplify-exp e)
+                          e)))]
+    simplify-exp))
 
 (def dsimp
   (simplifier deriv-rules))
