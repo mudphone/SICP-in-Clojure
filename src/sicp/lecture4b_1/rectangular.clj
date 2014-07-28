@@ -24,7 +24,7 @@
 
 (defn angle
   [z]
-  (atan (first z) (last z)))
+  (atan (last z) (first z)))
 
 
 ;; Constructors 12:36
