@@ -1,4 +1,4 @@
-(ns sicp.lecture4b-1.math)
+(ns sicp.lecture4b.math)
 
 ;; Generic Operators
 ;; Lecture 4B, Part 1 - Text Section 2.3

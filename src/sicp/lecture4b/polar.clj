@@ -1,5 +1,5 @@
-(ns sicp.lecture4b-1.polar
-  (:require [sicp.lecture4b-1.math :refer [atan square]]))
+(ns sicp.lecture4b.polar
+  (:require [sicp.lecture4b.math :refer [atan square]]))
 
 ;; Generic Operators
 ;; Lecture 4B, Part 1 - Text Section 2.3
@@ -44,16 +44,24 @@
 
 (defn add-c
   [z1 z2]
-)
+  (make-rectangular
+   (+ (real-part z1) (real-part z2))
+   (+ (imag-part z1) (imag-part z2))))
 
 (defn sub-c
   [z1 z2]
-)
+  (make-rectangular
+   (- (real-part z1) (real-part z2))
+   (- (imag-part z1) (imag-part z2))))
 
 (defn mul-c
   [z1 z2]
-)
+  (make-polar
+   (* (magnitude z1) (magnitude z2))
+   (+ (angle z1) (angle z2))))
 
 (defn div-c
   [z1 z2]
-)
+  (make-polar
+   (/ (magnitude z1) (magnitude z2))
+   (- (angle z1) (angle z2))))

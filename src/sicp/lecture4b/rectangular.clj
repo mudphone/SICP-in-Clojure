@@ -1,5 +1,5 @@
-(ns sicp.lecture4b-1.rectangular
-  (:require [sicp.lecture4b-1.math :refer [atan square]]))
+(ns sicp.lecture4b.rectangular
+  (:require [sicp.lecture4b.math :refer [atan square]]))
 
 ;; Generic Operators
 ;; Lecture 4B, Part 1 - Text Section 2.3
