@@ -39,6 +39,12 @@
   [(* r (Math/cos a))
    (* r (Math/sin a))])
 
+(defn gen-rectangular
+  [x y]
+  {:type :rectangular
+   :value (make-rectangular x y)})
+
+
 ;; Complex Math Operators
 
 (defn add-c

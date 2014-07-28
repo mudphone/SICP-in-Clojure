@@ -39,6 +39,11 @@
   [r a]
   [r a])
 
+(defn gen-polar
+  [r a]
+  {:type :polar
+   :value (make-polar r a)})
+
 
 ;; Complex Math Operators
 
