@@ -1,5 +1,6 @@
 (ns sicp.lecture4b.polar
-  (:require [sicp.lecture4b.math :refer [atan square]]))
+  (:require [sicp.lecture4b.math :refer [atan square]]
+            [sicp.lecture4b.wrapper :refer [wrap]]))
 
 ;; Generic Operators
 ;; Lecture 4B, Part 1 - Text Section 2.3
@@ -41,8 +42,8 @@
 
 (defn gen-polar
   [r a]
-  {:type :polar
-   :value (make-polar r a)})
+  (wrap :polar
+        (make-polar r a)))
 
 
 ;; Complex Math Operators

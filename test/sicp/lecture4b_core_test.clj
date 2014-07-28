@@ -2,7 +2,8 @@
   (:require [clojure.test :refer :all]
             [sicp.lecture4b.core :refer :all]
             [sicp.lecture4b.rectangular :as rec]
-            [sicp.lecture4b.polar :as pol]))
+            [sicp.lecture4b.polar :as pol]
+            [sicp.lecture4b.wrapper :refer [ntype nvalue]]))
 
 (deftest type-test
   (testing "selection of type from generic number"

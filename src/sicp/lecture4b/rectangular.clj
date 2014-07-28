@@ -1,5 +1,6 @@
 (ns sicp.lecture4b.rectangular
-  (:require [sicp.lecture4b.math :refer [atan square]]))
+  (:require [sicp.lecture4b.math :refer [atan square]]
+            [sicp.lecture4b.wrapper :refer [wrap]]))
 
 ;; Generic Operators
 ;; Lecture 4B, Part 1 - Text Section 2.3
@@ -41,8 +42,8 @@
 
 (defn gen-rectangular
   [x y]
-  {:type :rectangular
-   :value (make-rectangular x y)})
+  (wrap :rectangular
+        (make-rectangular x y)))
 
 
 ;; Complex Math Operators
