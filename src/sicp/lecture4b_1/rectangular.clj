@@ -19,12 +19,12 @@
 
 (defn magnitude
   [z]
-  (Math/sqrt (+ (square (first z))
-                (square (last z)))))
+  (Math/sqrt (+ (square (real-part z))
+                (square (imag-part z)))))
 
 (defn angle
   [z]
-  (atan (last z) (first z)))
+  (atan (imag-part z) (real-part z)))
 
 
 ;; Constructors 12:36
