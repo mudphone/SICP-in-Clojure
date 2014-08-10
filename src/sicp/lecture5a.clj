@@ -1,4 +1,5 @@
-(ns sicp.lecture5a)
+(ns sicp.lecture5a
+  (:require [sicp.lecture2b-2 :refer [gcd]]))
 
 ;; Assignment, State & Side-effects
 ;; Lecture 5A
@@ -12,15 +13,35 @@
 ;; Cesaro's method for estimating Pi
 
 ;; 1:08:15
-(defn my-rand [])
+(defn my-rand []
+  (inc (rand-int 10)))
 
 ;; 1:06:44
-(defn monte-carlo [trials experiment])
+(defn monte-carlo
+  [trials experiment]
+  (let [iter (fn [remaining passed]
+               (cond (= remaining 0)
+                     (/ passed trials)
+                  
+                     (experiment)
+                     (recur (dec remaining)
+                            (inc passed))
+                     :else
+                     (recur (dec remaining)
+                            passed)))]
+    (iter trials 0)))
 
 ;; 1:03:54
-(defn gcd [x y])
-(defn estimate-pi [n])
-(defn cesaro [])
+(defn cesaro
+  []
+  (= 1 (gcd (my-rand) (my-rand))))
+
+(defn estimate-pi
+  [n]
+  (let [mc (monte-carlo n cesaro)]
+    (if (= 0 mc)
+      "Error: Divide by zero."
+      (Math/sqrt (/ 6 mc)))))
 
 
 ;;

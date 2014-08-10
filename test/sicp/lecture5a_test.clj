@@ -2,6 +2,11 @@
   (:require [clojure.test :refer :all]
             [sicp.lecture5a :refer :all]))
 
-(deftest x-test
-  (testing "something"
-    (is (= 1 1) "Simple addition")))
+(deftest estimate-pi-test
+  (testing "an estimated pi"
+    (is (let [pi-ish (estimate-pi 10)]
+          (or
+           (= "Error: Divide by zero." pi-ish)
+           (and
+            (< 0.1 pi-ish)
+            (> 6.0 pi-ish)))) "Somewhat near Pi")))
