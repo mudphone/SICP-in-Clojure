@@ -1,6 +1,6 @@
-# sicp
+# SICP in Clojure
 
-A Clojure library designed to ... well, that part is up to you.
+Working through some examples show during the [SICP video lectures](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/).
 
 ## Of interest...
 
@@ -8,7 +8,7 @@ A Clojure library designed to ... well, that part is up to you.
 
 ## License
 
-Copyright © 2014 FIXME
+Copyright © 2017 Kyle Oba
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
